@@ -53,4 +53,4 @@ def login_request(request:HttpRequest) -> HttpResponse:
 def logout_request(request: HttpRequest) -> HttpResponse:
 	logout(request)
 	messages.info(request, "You have successfully logged out.")
-	return redirect("homepage")
+	return redirect("login")

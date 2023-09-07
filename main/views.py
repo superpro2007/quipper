@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect
 
-# Create your views here.
+def index_request(request: HttpRequest) -> HttpResponse:
+    current_user = request.user
+    if current_user.is_authenticated:
+        return redirect("homepage")
+    else:
+        return redirect("register")
