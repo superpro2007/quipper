@@ -1,0 +1,9 @@
+{% load crispy_forms_tags %}
+
+<div class="container py-5">
+	<form method="POST">
+		{% csrf_token %}
+		{{ new_quip_form|crispy }}
+		<button class="btn btn-primary" type="submit">Quip!</button>
+	</form>
+</div>
