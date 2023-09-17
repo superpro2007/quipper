@@ -1,10 +1,15 @@
-{% for message in messages %}
-<div class="container-fluid p-0">
-  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="True">&times;</span>
-    </button>
-    {{ message }}
-  </div>
-</div>
-{% endfor %}
+{% block messages %}
+<ul class="messages" id="messages-list">
+  {% if messages %} {% for message in messages %}
+  <li>
+    {% if message.tags %}
+    <div class="alert {{ message.tags }} msg fade show" role="alert">
+      {{ message }}
+    </div>
+    {% else %}
+    <div class="alert alert-info msg fade show" role="alert">{{ message }}</div>
+    {% endif %}
+  </li>
+  {% endfor %} {% endif %}
+</ul>
+{% endblock %}
