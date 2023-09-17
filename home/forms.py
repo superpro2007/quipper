@@ -6,7 +6,12 @@ class NewQuipForm(ModelForm):
     text = CharField(
         required=True,
         widget=Textarea(
-            attrs={"cols": "80", "rows": "10", "placeholder": "What is going on?"}
+            attrs={
+                "cols": "80",
+                "rows": "5",
+                "placeholder": "What is going on?",
+                "style": "font-size: 1.3em;",
+            }
         ),
         label="",
         min_length=1,
