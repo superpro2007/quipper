@@ -1,10 +1,27 @@
 {% for post in posts %}
 <div class="container py-4 border-bottom border-2">
+  {% comment %} Header {% endcomment %}
   <div class="container py-1">
     <p class="fw-bold fs-5">{{ post.user }}</p>
   </div>
+
+  {% comment %} Text {% endcomment %}
   <div class="container py-2 text-break">
     <p class="fs-4">{{ post.text }}</p>
+  </div>
+
+  {% comment %} Like bar {% endcomment %}
+  <div class="container py-1">
+    {% comment %}
+    <button type="button" class="btn btn-link text-decoration-none">❤️</button>
+    {% endcomment %}
+
+    <form method="POST" action="{% url 'quip_like' post.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-light text-decoration-none">
+        🤍 Like
+      </button>
+    </form>
   </div>
 </div>
 {% endfor %}
