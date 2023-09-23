@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from users.views import register_request, login_request, logout_request
+from users.views import register_request, login_request, logout_request, user_profile_request
 from home.views import home_request
 from main.views import index_request, quip_like_request
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path("logout", logout_request, name= "logout"),
     path("",index_request, name= "index"),
     path("quip/like/<quip_id>", quip_like_request, name= "quip_like"),
+    path("users/<user_id>", user_profile_request, name= "user_profile"),
 ]

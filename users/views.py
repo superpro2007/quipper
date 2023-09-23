@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
+from main.models import Quip
 
 from .forms import NewUserForm
 
@@ -28,7 +29,7 @@ def register_request(request: HttpRequest) -> HttpResponse:
     )
 
 
-def login_request(request:HttpRequest) -> HttpResponse:
+def login_request(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -50,7 +51,18 @@ def login_request(request:HttpRequest) -> HttpResponse:
         request=request, template_name="login.html", context={"login_form": form}
     )
 
+
 def logout_request(request: HttpRequest) -> HttpResponse:
-	logout(request)
-	messages.info(request, "You have successfully logged out.")
-	return redirect("login")
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect("login")
+
+
+def user_profile_request(request: HttpRequest, user_id) -> HttpResponse:
+    posts = Quip.objects.filter(user_id=user_id).order_by("-id")
+
+    return render(
+        request=request,
+        template_name="profile.html",
+        context={"posts": posts},
+    )
