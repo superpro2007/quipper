@@ -16,16 +16,14 @@
     <button type="button" class="btn btn-link text-decoration-none">❤️</button>
     {% endcomment %}
 
-    <form method="POST" action="{% url 'quip_like' post.id %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-light text-decoration-none">
-        {% if post.get_likes_count == 0 %}
-          🤍 Like
-        {% else %}
-          ❤️ {{post.get_likes_count}}
-        {% endif %}
-      </button>
-    </form>
+    {% csrf_token %}
+    <button type="submit" postid = "{{post.id}}" id="quip_{{post.id}}" class="like btn btn-light text-decoration-none">
+      {% if post.get_likes_count == 0 %}
+        🤍 Like
+      {% else %}
+        ❤️ {{post.get_likes_count}}
+      {% endif %}
+    </button>
   </div>
 </div>
 {% endfor %}
