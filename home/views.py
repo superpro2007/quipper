@@ -3,8 +3,10 @@ from django.http import HttpResponse, HttpRequest
 from home.forms import NewQuipForm
 from main.models import Quip
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def home_request(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = NewQuipForm(request.POST)

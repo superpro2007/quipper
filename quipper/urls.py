@@ -11,6 +11,5 @@ urlpatterns = [
     path("login", login_request, name="login"),
     path("logout", logout_request, name= "logout"),
     path("",index_request, name= "index"),
-    path("quip/like/<quip_id>", quip_like_request, name= "quip_like")
-
+    path("quip/like/<quip_id>", quip_like_request, name= "quip_like"),
 ]
