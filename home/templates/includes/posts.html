@@ -2,7 +2,9 @@
 <div class="container py-4 border-bottom border-2">
   {% comment %} Header {% endcomment %}
   <div class="container py-1">
-    <p class="fw-bold fs-5">{{ post.user }}</p>
+    <p class="fw-bold fs-5 " >
+      <a class="text-decoration-none text-reset" href="/users/{{post.user.id}}">{{post.user}}</a>
+    </p>
   </div>
 
   {% comment %} Text {% endcomment %}
@@ -12,10 +14,6 @@
 
   {% comment %} Like bar {% endcomment %}
   <div class="container py-1">
-    {% comment %}
-    <button type="button" class="btn btn-link text-decoration-none">❤️</button>
-    {% endcomment %}
-
     {% csrf_token %}
     <button type="submit" postid = "{{post.id}}" id="quip_{{post.id}}" class="like btn btn-light text-decoration-none">
       {% if post.get_likes_count == 0 %}
