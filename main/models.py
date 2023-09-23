@@ -7,6 +7,10 @@ class Quip(models.Model):
     text = models.TextField()
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
+    def get_likes_count(self):
+        likes_count = Like.objects.filter(quip_id=self.pk).count()
+        return likes_count
+
     def __str__(self):
         return f"{self.user}: {self.text}"
 

@@ -19,7 +19,11 @@
     <form method="POST" action="{% url 'quip_like' post.id %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-light text-decoration-none">
-        🤍 Like
+        {% if post.get_likes_count == 0 %}
+          🤍 Like
+        {% else %}
+          ❤️ {{post.get_likes_count}}
+        {% endif %}
       </button>
     </form>
   </div>
