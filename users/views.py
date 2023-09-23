@@ -4,6 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from main.models import Quip
+from django.contrib.auth.models import User
+
 
 from .forms import NewUserForm
 
@@ -60,9 +62,10 @@ def logout_request(request: HttpRequest) -> HttpResponse:
 
 def user_profile_request(request: HttpRequest, user_id) -> HttpResponse:
     posts = Quip.objects.filter(user_id=user_id).order_by("-id")
+    user_to_show = User.objects.get(id=user_id)
 
     return render(
         request=request,
         template_name="profile.html",
-        context={"posts": posts},
+        context={"posts": posts, "user_to_show": user_to_show},
     )
