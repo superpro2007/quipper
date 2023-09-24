@@ -3,13 +3,13 @@ $(".like").click(function () {
   postid = $(this).attr("postid");
   var path;
   path = "/quip/" + postid + "/like";
-  $.get(path, function (data) {
+  $.get(path, function (likes_amount) {
     var buttonid;
     buttonid = "#quip_" + postid;
-    if (data == 0) {
+    if (likes_amount == 0) {
       $(buttonid).html("🤍 Like");
     } else {
-      $(buttonid).html("❤️ " + data);
+      $(buttonid).html("❤️ " + likes_amount);
     }
   });
 });
