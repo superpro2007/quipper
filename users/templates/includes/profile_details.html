@@ -3,7 +3,13 @@
     <div class="col py-1 fw-bold fs-3">{{user_to_show.username}}</div>
     {% if user.id != user_to_show.id %}
     <div class="col py-1 fw-bold fs-3">
-      <button class="btn btn-primary btn-lg float-end" type="submit">Follow</button>
+      <button userid="{{user_to_show.id}}" id="follow_{{user_to_show.id}}"class="follow btn btn-primary btn-lg float-end" type="submit">
+        {% if following_exists %}
+        Unfollow
+        {% else %}
+        Follow
+        {% endif %}
+      </button>
     </div>
     {% endif %}
   </div>

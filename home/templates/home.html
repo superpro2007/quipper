@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
     {% include 'includes/new_quip.html' %}
     {% include 'includes/posts.html' %}
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/like.js' %}"></script>
 {% endblock %}

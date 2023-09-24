@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    {% comment %} {% load static %} {% endcomment %}
-
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,10 +22,8 @@
     {% block content %}
     {% endblock %}
 
-
     <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
     <script src="{% static 'js/toast.js' %}"></script>
-    <script src="{% static 'js/like.js' %}"></script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -39,5 +35,8 @@
       integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
       crossorigin="anonymous"
     ></script>
+
+    {% block js %}
+    {% endblock %}
   </body>
 </html>

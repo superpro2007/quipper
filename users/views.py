@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from main.models import Quip
 from django.contrib.auth.models import User
-
+from users.models import Following
 
 from .forms import NewUserForm
 
@@ -64,8 +64,33 @@ def user_profile_request(request: HttpRequest, user_id) -> HttpResponse:
     posts = Quip.objects.filter(user_id=user_id).order_by("-id")
     user_to_show = User.objects.get(id=user_id)
 
+    try:
+        Following.objects.get(from_user=request.user, to_user=user_to_show)
+        following_exists = True
+    except Following.DoesNotExist:
+        following_exists = False
+
     return render(
         request=request,
         template_name="profile.html",
-        context={"posts": posts, "user_to_show": user_to_show},
+        context={
+            "posts": posts,
+            "user_to_show": user_to_show,
+            "following_exists": following_exists,
+        },
     )
+
+
+def user_follow_request(request: HttpRequest, user_to_follow_id) -> HttpResponse:
+    user_to_follow = User.objects.get(id=user_to_follow_id)
+
+    try:
+        following = Following.objects.get(
+            from_user=request.user, to_user=user_to_follow
+        )
+        following.delete()
+        return HttpResponse(False)
+    except Following.DoesNotExist:
+        following = Following(from_user=request.user, to_user=user_to_follow)
+        following.save()
+        return HttpResponse(True)
