@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from home.forms import NewQuipForm
 from main.models import Quip
+from users.models import Following
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -23,10 +24,19 @@ def home_request(request: HttpRequest) -> HttpResponse:
     request.session[TIMELINE] = timeline
 
     form = NewQuipForm()
-    posts = Quip.objects.all().order_by("-id")
-
+    posts = get_posts(timeline, request.user)
     return render(
         request=request,
         template_name="home.html",
         context={"new_quip_form": form, "posts": posts, "timeline": timeline},
     )
+
+
+def get_posts(timeline_mode, user):
+    if timeline_mode == FOR_YOU:
+        return Quip.objects.all().order_by("-id")
+    else:
+        followings = Following.objects.filter(from_user=user)
+        followed_users = list(map(lambda following: following.to_user, followings))
+        followed_users.append(user)
+        return Quip.objects.filter(user__in=followed_users).order_by("-id")
