@@ -5,6 +5,10 @@ from main.models import Quip
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+FOLLOWING = "following"
+FOR_YOU = "for_you"
+TIMELINE = "timeline"
+
 
 @login_required
 def home_request(request: HttpRequest) -> HttpResponse:
@@ -15,11 +19,14 @@ def home_request(request: HttpRequest) -> HttpResponse:
         quip.save()
         messages.success(request, "Quip posted!")
 
+    timeline = request.GET.get(TIMELINE, request.session.get(TIMELINE, FOR_YOU))
+    request.session[TIMELINE] = timeline
+
     form = NewQuipForm()
-    posts = Quip.objects.all().order_by('-id')
+    posts = Quip.objects.all().order_by("-id")
 
     return render(
         request=request,
         template_name="home.html",
-        context={"new_quip_form": form, "posts": posts},
+        context={"new_quip_form": form, "posts": posts, "timeline": timeline},
     )

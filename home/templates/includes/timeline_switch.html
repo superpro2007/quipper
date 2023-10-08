@@ -1,0 +1,35 @@
+<div class="container py-4 border-bottom border-2">
+  <ul class="nav nav-pills nav-fill">
+    {% if timeline == "for_you" %}
+    <li class="nav-item">
+      <a
+        class="nav-link active fs-5"
+        aria-current="page"
+        href="/home?timeline=for_you"
+        >For You</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link text-decoration-none text-reset fs-5"
+        href="/home?timeline=following"
+        >Following</a
+      >
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a
+        class="nav-link text-decoration-none text-reset fs-5"
+        aria-current="page"
+        href="/home?timeline=for_you"
+        >For You</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active fs-5" href="/home?timeline=following"
+        >Following</a
+      >
+    </li>
+    {% endif %}
+  </ul>
+</div>
