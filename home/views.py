@@ -55,9 +55,10 @@ def quip_details_request(request: HttpRequest, quip_id) -> HttpResponse:
 
     form = NewQuipForm()
     form.fields["text"].widget.attrs["placeholder"] = "Put your reply here!"
+    child_posts = Quip.objects.filter(parent_quip=post).order_by("-id")
 
     return render(
         request=request,
         template_name="quip.html",
-        context={"post": post, "new_quip_form": form},
+        context={"post": post, "new_quip_form": form, "posts": child_posts},
     )
