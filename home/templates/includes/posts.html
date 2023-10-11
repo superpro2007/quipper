@@ -12,8 +12,9 @@
     <p class="fs-4">{{ post.text }}</p>
   </div>
 
-  {% comment %} Like bar {% endcomment %}
+  {% comment %} Action bar {% endcomment %}
   <div class="container py-1">
+    <a class="btn btn-light text-decoration-none" href="/quip/{{post.id}}" role="button">🗣 Reply</a>
     {% csrf_token %}
     <button type="submit" postid = "{{post.id}}" id="quip_{{post.id}}" class="like btn btn-light text-decoration-none">
       {% if post.get_likes_count == 0 %}
