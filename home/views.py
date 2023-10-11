@@ -41,12 +41,20 @@ def get_posts(timeline_mode, user):
         followed_users.append(user)
         return Quip.objects.filter(user__in=followed_users).order_by("-id")
 
+
 @login_required
 def quip_details_request(request: HttpRequest, quip_id) -> HttpResponse:
     post = Quip.objects.get(id=quip_id)
-    form = NewQuipForm()
-    form.fields["text"].widget.attrs['placeholder'] = "Put your reply here!"
 
+    if request.method == "POST":
+        form = NewQuipForm(request.POST)
+        text = form.data["text"]
+        quip = Quip(text=text, user=request.user, parent_quip=post)
+        quip.save()
+        messages.success(request, "Quip posted!")
+
+    form = NewQuipForm()
+    form.fields["text"].widget.attrs["placeholder"] = "Put your reply here!"
 
     return render(
         request=request,
