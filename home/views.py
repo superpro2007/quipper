@@ -40,3 +40,13 @@ def get_posts(timeline_mode, user):
         followed_users = list(map(lambda following: following.to_user, followings))
         followed_users.append(user)
         return Quip.objects.filter(user__in=followed_users).order_by("-id")
+
+@login_required
+def quip_details_request(request: HttpRequest, quip_id) -> HttpResponse:
+    post = Quip.objects.get(id=quip_id)
+
+    return render(
+        request=request,
+        template_name="quip.html",
+        context={"post": post},
+    )

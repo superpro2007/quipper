@@ -7,7 +7,7 @@ from users.views import (
     user_profile_request,
     user_follow_request,
 )
-from home.views import home_request
+from home.views import home_request, quip_details_request
 from main.views import index_request, quip_like_request
 
 urlpatterns = [
@@ -20,4 +20,6 @@ urlpatterns = [
     path("quip/<quip_id>/like", quip_like_request, name="quip_like"),
     path("user/<user_id>", user_profile_request, name="user_profile"),
     path("user/<user_to_follow_id>/follow", user_follow_request, name="user_follow"),
+    path("quip/<quip_id>", quip_details_request, name="quip_details"),
+
 ]
