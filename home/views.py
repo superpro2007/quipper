@@ -44,9 +44,12 @@ def get_posts(timeline_mode, user):
 @login_required
 def quip_details_request(request: HttpRequest, quip_id) -> HttpResponse:
     post = Quip.objects.get(id=quip_id)
+    form = NewQuipForm()
+    form.fields["text"].widget.attrs['placeholder'] = "Put your reply here!"
+
 
     return render(
         request=request,
         template_name="quip.html",
-        context={"post": post},
+        context={"post": post, "new_quip_form": form},
     )
