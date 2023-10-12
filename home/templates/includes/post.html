@@ -13,7 +13,13 @@
 
   {% comment %} Action bar {% endcomment %}
   <div class="container py-1">
-    <a class="btn btn-light text-decoration-none" href="/quip/{{post.id}}" role="button">🗣 Reply</a>
+    <a class="btn btn-light text-decoration-none" href="/quip/{{post.id}}" role="button">
+      {% if post.get_replies_count == 0 %}
+        💬 Reply
+      {% else %}
+        🗣 {{post.get_replies_count}}
+      {% endif %}
+    </a>
     {% csrf_token %}
     <button type="submit" postid = "{{post.id}}" id="quip_{{post.id}}" class="like btn btn-light text-decoration-none">
       {% if post.get_likes_count == 0 %}
