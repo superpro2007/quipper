@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from main.models import Quip
 from django.contrib.auth.models import User
 from users.models import Following
+from home.views import sort_posts
 
 from .forms import NewUserForm
 
@@ -63,6 +64,7 @@ def logout_request(request: HttpRequest) -> HttpResponse:
 def user_profile_request(request: HttpRequest, user_id) -> HttpResponse:
     posts = Quip.objects.filter(user_id=user_id).order_by("-id")
     user_to_show = User.objects.get(id=user_id)
+    parent_posts, child_posts = sort_posts(posts)
 
     try:
         Following.objects.get(from_user=request.user, to_user=user_to_show)
@@ -74,7 +76,8 @@ def user_profile_request(request: HttpRequest, user_id) -> HttpResponse:
         request=request,
         template_name="profile.html",
         context={
-            "posts": posts,
+            "parent_posts": parent_posts,
+            "child_posts": child_posts,
             "user_to_show": user_to_show,
             "following_exists": following_exists,
         },

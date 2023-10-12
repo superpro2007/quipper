@@ -1,0 +1,32 @@
+<div class="ps-5 container py-1 border-bottom border-2">
+  {% comment %} Header {% endcomment %}
+  <div class="container py-1">
+    <p class="fw-bold fs-5 " >
+      <a class="text-decoration-none text-reset" href="/user/{{child_post.user.id}}">{{child_post.user}}</a>
+    </p>
+  </div>
+
+  {% comment %} Text {% endcomment %}
+  <div class="container py-2 text-break">
+    <p class="fs-5">{{ child_post.text }}</p>
+  </div>
+
+  {% comment %} Action bar {% endcomment %}
+  <div class="container py-1">
+    <a class="btn btn-light text-decoration-none" href="/quip/{{child_post.id}}" role="button">
+      {% if child_post.get_replies_count == 0 %}
+        💬 Reply
+      {% else %}
+        🗣 {{child_post.get_replies_count}}
+      {% endif %}
+    </a>
+    {% csrf_token %}
+    <button type="submit" postid = "{{child_post.id}}" id="quip_{{child_post.id}}" class="like btn btn-light text-decoration-none">
+      {% if child_post.get_likes_count == 0 %}
+        🤍 Like
+      {% else %}
+        ❤️ {{child_post.get_likes_count}}
+      {% endif %}
+    </button>
+  </div>
+</div>

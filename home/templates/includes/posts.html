@@ -1,3 +1,7 @@
-{% for post in posts %}
-{% include 'includes/post.html' %}
+{% for post in parent_posts %}
+    {% include 'includes/parent_post.html' %}
+
+    {% for child_post in child_posts|get_item:post.id %}
+        {% include 'includes/child_post.html' %}
+    {% endfor %}
 {% endfor %}

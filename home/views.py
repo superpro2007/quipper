@@ -1,3 +1,4 @@
+from typing import Dict, List, Tuple
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from home.forms import NewQuipForm
@@ -24,22 +25,44 @@ def home_request(request: HttpRequest) -> HttpResponse:
     request.session[TIMELINE] = timeline
 
     form = NewQuipForm()
-    posts = get_posts(timeline, request.user)
+    parent_quips, child_quips = get_posts(timeline, request.user)
     return render(
         request=request,
         template_name="home.html",
-        context={"new_quip_form": form, "posts": posts, "timeline": timeline},
+        context={
+            "new_quip_form": form,
+            "parent_posts": parent_quips,
+            "child_posts": child_quips,
+            "timeline": timeline,
+        },
     )
 
 
 def get_posts(timeline_mode, user):
     if timeline_mode == FOR_YOU:
-        return Quip.objects.all().order_by("-id")
+        all_quips = Quip.objects.all().order_by("-id")
+        return sort_posts(all_quips)
     else:
         followings = Following.objects.filter(from_user=user)
         followed_users = list(map(lambda following: following.to_user, followings))
         followed_users.append(user)
-        return Quip.objects.filter(user__in=followed_users).order_by("-id")
+        following_quips = Quip.objects.filter(user__in=followed_users).order_by("-id")
+        return sort_posts(following_quips)
+
+
+def sort_posts(quips) -> Tuple[List[Quip], Dict[int, Quip]]:
+    parent_quips = []
+    child_quips = {}
+
+    for quip in quips:
+        if quip.parent_quip:
+            current_childs = child_quips.get(quip.parent_quip.pk, [])
+            current_childs.append(quip)
+            child_quips[quip.parent_quip.pk] = current_childs
+        else:
+            parent_quips.append(quip)
+
+    return parent_quips, child_quips
 
 
 @login_required
@@ -60,5 +83,10 @@ def quip_details_request(request: HttpRequest, quip_id) -> HttpResponse:
     return render(
         request=request,
         template_name="quip.html",
-        context={"post": post, "new_quip_form": form, "posts": child_posts},
+        context={
+            "post": post,
+            "new_quip_form": form,
+            "parent_posts": child_posts,
+            "child_posts": {},
+        },
     )
