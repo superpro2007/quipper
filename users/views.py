@@ -72,6 +72,9 @@ def user_profile_request(request: HttpRequest, user_id) -> HttpResponse:
     except Following.DoesNotExist:
         following_exists = False
 
+    followers_count = Following.objects.filter(to_user_id=user_id).count()
+    followings_count = Following.objects.filter(from_user_id=user_id).count()
+
     return render(
         request=request,
         template_name="profile.html",
@@ -80,6 +83,8 @@ def user_profile_request(request: HttpRequest, user_id) -> HttpResponse:
             "child_posts": child_posts,
             "user_to_show": user_to_show,
             "following_exists": following_exists,
+            "followers_count": followers_count,
+            "followings_count": followings_count,
         },
     )
 
