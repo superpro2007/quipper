@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import UniqueConstraint
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Following(models.Model):
@@ -21,3 +23,20 @@ class Following(models.Model):
                 fields=["from_user", "to_user"],
             ),
         )
+
+
+class Quipper(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def get_followings_count(self) -> int:
+        return Following.objects.filter(from_user_id=self.user.pk).count()
+
+    def get_followers_count(self) -> int:
+        return Following.objects.filter(to_user_id=self.user.pk).count()
+
+
+@receiver(post_save, sender=User)
+def valid_order(sender, instance: User, **kwargs):
+    if not Quipper.objects.filter(user=instance).exists():
+        quipper = Quipper(user=instance)
+        quipper.save()

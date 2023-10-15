@@ -6,6 +6,8 @@ from users.views import (
     logout_request,
     user_profile_request,
     user_follow_request,
+    user_followings,
+    user_followers,
 )
 from home.views import home_request, quip_details_request
 from main.views import index_request, quip_like_request
@@ -21,5 +23,7 @@ urlpatterns = [
     path("user/<user_id>", user_profile_request, name="user_profile"),
     path("user/<user_to_follow_id>/follow", user_follow_request, name="user_follow"),
     path("quip/<quip_id>", quip_details_request, name="quip_details"),
+    path("user/<user_id>/followings", user_followings, name="user_followings"),
+    path("user/<user_id>/followers", user_followers, name="user_followers"),
 
 ]

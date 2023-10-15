@@ -72,9 +72,6 @@ def user_profile_request(request: HttpRequest, user_id) -> HttpResponse:
     except Following.DoesNotExist:
         following_exists = False
 
-    followers_count = Following.objects.filter(to_user_id=user_id).count()
-    followings_count = Following.objects.filter(from_user_id=user_id).count()
-
     return render(
         request=request,
         template_name="profile.html",
@@ -83,8 +80,6 @@ def user_profile_request(request: HttpRequest, user_id) -> HttpResponse:
             "child_posts": child_posts,
             "user_to_show": user_to_show,
             "following_exists": following_exists,
-            "followers_count": followers_count,
-            "followings_count": followings_count,
         },
     )
 
@@ -102,3 +97,24 @@ def user_follow_request(request: HttpRequest, user_to_follow_id) -> HttpResponse
         following = Following(from_user=request.user, to_user=user_to_follow)
         following.save()
         return HttpResponse(True)
+
+
+def user_followings(request: HttpRequest, user_id) -> HttpResponse:
+    followings = Following.objects.filter(from_user_id=user_id)
+    users = map(lambda following: following.to_user, followings)
+
+    return render(
+        request=request,
+        template_name="following_list.html",
+        context={"following_list": users},
+    )
+
+
+def user_followers(request: HttpRequest, user_id) -> HttpResponse:
+    followers = Following.objects.filter(to_user_id=user_id)
+    users = map(lambda following: following.from_user, followers)
+    return render(
+        request=request,
+        template_name="following_list.html",
+        context={"following_list": users},
+    )

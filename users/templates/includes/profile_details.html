@@ -17,8 +17,8 @@
   </div>
   <div class="row py-1">
     <nav class="nav">
-      <a class="nav-link link-secondary fs-5"  href="#"><b>{{followers_count}}</b> Followers</a>
-      <a class="nav-link link-secondary fs-5" href="#"><b>{{followings_count}}</b> Followings</a>
+      <a class="nav-link link-secondary fs-5"  href="/user/{{user_to_show.id}}/followers"><b>{{user_to_show.quipper.get_followers_count}}</b> Followers</a>
+      <a class="nav-link link-secondary fs-5" href="/user/{{user_to_show.id}}/followings"><b>{{user_to_show.quipper.get_followings_count}}</b> Followings</a>
     </nav>
   </div>
 </div>
