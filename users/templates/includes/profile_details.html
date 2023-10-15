@@ -1,16 +1,24 @@
 <div class="container py-4">
   <div class="row py-1">
     <div class="col py-1 fw-bold fs-3">{{user_to_show.username}}</div>
+
     {% if user.id != user_to_show.id %}
-    <div class="col py-1 fw-bold fs-3">
-      <button userid="{{user_to_show.id}}" id="follow_{{user_to_show.id}}"class="follow btn btn-primary btn-lg float-end" type="submit">
-        {% if following_exists %}
-        Unfollow
-        {% else %}
-        Follow
-        {% endif %}
-      </button>
-    </div>
+      <div class="col py-1 fw-bold fs-3">
+        <button userid="{{user_to_show.id}}" id="follow_{{user_to_show.id}}"class="follow btn btn-primary btn-lg float-end" type="submit">
+          {% if following_exists %}
+          Unfollow
+          {% else %}
+          Follow
+          {% endif %}
+        </button>
+
+      </div>
     {% endif %}
+  </div>
+  <div class="row py-1">
+    <nav class="nav">
+      <a class="nav-link link-secondary fs-5"  href="#">2 Followers</a>
+      <a class="nav-link link-secondary fs-5" href="#">3 Followings</a>
+    </nav>
   </div>
 </div>
