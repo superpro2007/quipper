@@ -1,0 +1,20 @@
+version: "3.1"
+
+volumes:
+  db_data:
+
+services:
+  db:
+    container_name: db
+    image: postgres:15.4-alpine3.18
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - type: volume
+        source: db_data
+        target: /var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: quipper
+      POSTGRES_PASSWORD: quipper
+      POSTGRES_HOST_AUTH_METHOD: password
