@@ -1,12 +1,6 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block content %}
     {% include 'includes/profile_details.html' %}
     {% include 'includes/posts.html' %}
-{% endblock %}
-
-{% block js %}
-    <script src="{% static 'js/like.js' %}"></script>
-    <script src="{% static 'js/follow.js' %}"></script>
 {% endblock %}

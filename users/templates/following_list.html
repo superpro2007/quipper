@@ -1,12 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block content %}
     {% for user_to_show in following_list %}
         {% include 'includes/profile_details.html' %}
     {% endfor %}
-{% endblock %}
-
-{% block js %}
-    <script src="{% static 'js/follow.js' %}"></script>
 {% endblock %}
