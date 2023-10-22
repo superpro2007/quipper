@@ -13,9 +13,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from django.contrib.messages import constants as messages
 
+import os
+from os import getenv
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Create .env file path.
+dotenv_path = os.path.join(BASE_DIR, ".env")
+
+# Load file from the path.
+load_dotenv(dotenv_path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -89,7 +98,7 @@ DATABASES = {
         "NAME": "quipper",
         "USER": "quipper",
         "PASSWORD": "quipper",
-        "HOST": "127.0.0.1",
+        "HOST": getenv("DB_HOST", default="127.0.0.1"),
         "PORT": "5432",
     }
 }
@@ -144,3 +153,5 @@ MESSAGE_TAGS = {
     messages.WARNING: "alert-warning",
     messages.ERROR: "alert-danger",
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

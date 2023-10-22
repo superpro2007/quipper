@@ -1,3 +1,8 @@
+NAME   := quipper
+TAG    := $$(git describe --tags --abbrev=0)
+IMG    := ${NAME}:${TAG}
+LATEST := ${NAME}:latest
+
 start_env:
 	docker compose -f local_env/docker-compose.yaml up -d  --build
 
@@ -9,3 +14,7 @@ clean_env:
 	docker volume prune -f; \
 	docker volume ls -qf dangling=true | xargs -r docker volume rm; \
 	docker network prune -f;
+
+build:
+	@docker build -t ${IMG} .
+	@docker build -t ${LATEST} .
