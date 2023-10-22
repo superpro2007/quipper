@@ -1,4 +1,4 @@
-NAME   := quipper
+NAME   := yauhenzhur/quipper
 TAG    := $$(git describe --tags --abbrev=0)
 IMG    := ${NAME}:${TAG}
 LATEST := ${NAME}:latest
@@ -18,3 +18,7 @@ clean_env:
 build:
 	@docker build -t ${IMG} .
 	@docker build -t ${LATEST} .
+
+push:
+	@docker push ${IMG}
+	@docker push ${LATEST}
