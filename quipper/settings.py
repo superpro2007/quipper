@@ -36,6 +36,7 @@ SECRET_KEY = "django-insecure-0d-jo%_v+$*oy+5jezdf#v_y1*x7@3e*n#p6zlzd^-^@s=p1jc
 DEBUG = eval(getenv("DEBUG", default="True"))
 
 ALLOWED_HOSTS = eval(getenv("ALLOWED_HOSTS", default="[]"))
+CSRF_TRUSTED_ORIGINS= eval(getenv("CSRF_TRUSTED_ORIGINS", default='[]'))
 
 
 # Application definition
