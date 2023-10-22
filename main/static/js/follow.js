@@ -1,3 +1,8 @@
+// dummy function for fly.io
+function follow_dummy() {
+  1 == 1;
+}
+
 $(".follow").click(function () {
   var userid;
   userid = $(this).attr("userid");

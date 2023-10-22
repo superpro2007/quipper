@@ -1,3 +1,8 @@
+// dummy function for fly.io
+function like_dummy() {
+  1 == 1;
+}
+
 $(".like").click(function () {
   var postid;
   postid = $(this).attr("postid");
