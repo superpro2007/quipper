@@ -95,11 +95,11 @@ WSGI_APPLICATION = "quipper.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "quipper",
-        "USER": "quipper",
-        "PASSWORD": "quipper",
+        "NAME": getenv("DB_NAME", default="quipper"),
+        "USER": getenv("DB_USER", default="quipper"),
+        "PASSWORD": getenv("DB_PASSWORD", default="quipper"),
         "HOST": getenv("DB_HOST", default="127.0.0.1"),
-        "PORT": "5432",
+        "PORT": getenv("DB_PORT", default="5432"),
     }
 }
 
