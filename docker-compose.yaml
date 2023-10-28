@@ -26,10 +26,10 @@ services:
 
   quipper:
     container_name: quipper
-    image: yauhenzhur/quipper:1.1.0
-    # build:
-    #   context: ./
-    #   dockerfile: Dockerfile
+    # image: yauhenzhur/quipper:1.1.0
+    build:
+      context: ./
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 80:8000
