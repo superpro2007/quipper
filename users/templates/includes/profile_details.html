@@ -1,9 +1,15 @@
 <div class="container py-4">
-  <div class="row py-1">
+
+
+  <div class="row row-cols-auto align-items-center py-1">
+    <div class="col userpic text-center fw-bold fs-1" style="background-color:{{user_to_show.quipper.get_userpic_color}}">
+      {{user_to_show|make_list|first|upper}}
+    </div>
+
     <div class="col py-1 fw-bold fs-3">{{user_to_show.username}}</div>
 
     {% if user.id != user_to_show.id %}
-      <div class="col py-1 fw-bold fs-3">
+      <div class="col py-1 fw-bold fs-3 ms-auto">
         <button userid="{{user_to_show.id}}" id="follow_{{user_to_show.id}}"class="follow btn btn-primary btn-lg float-end" type="submit">
           {% if following_exists %}
           Unfollow
