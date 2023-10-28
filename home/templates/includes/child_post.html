@@ -1,15 +1,17 @@
 <div class="ps-5 container py-1 border-bottom border-2">
   {% comment %} Header {% endcomment %}
   <div class="container py-1">
-    <span class="fw-bold fs-5 " >
-      <a class="text-decoration-none text-reset" href="/user/{{child_post.user.id}}">{{child_post.user}}</a>
-    </span>
-    <span>&nbsp;&nbsp;</span>
-    {% load tz %}
-    <span class="fs-6">{{child_post.created_at|localtime}}</span>
+    <div class="row row-cols-auto align-items-center">
+      <div class="col userpic text-center fw-bold fs-1" style="background-color:{{child_post.user.quipper.get_userpic_color}}">
+        {{child_post.user|make_list|first|upper}}
+      </div>
+      <div class="col fw-bold fs-5">
+        <a class="text-decoration-none text-reset" href="/user/{{child_post.user.id}}">{{child_post.user}}</a>
+      </div>
+      {% load tz %}
+      <div class="col fs-6">{{child_post.created_at|localtime}}</div>
+    </div>
   </div>
-
-  <br/>
 
   {% comment %} Text {% endcomment %}
   <div class="container py-2 text-break">

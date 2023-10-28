@@ -34,6 +34,18 @@ class Quipper(models.Model):
     def get_followers_count(self) -> int:
         return Following.objects.filter(to_user_id=self.user.pk).count()
 
+    def get_userpic_color(self):
+        saturation = 30
+        lightness = 80
+        hash_val = 0
+        
+        for char in self.user.username:
+            hash_val = ord(char) + ((hash_val << 5) - hash_val)
+
+        h = hash_val % 360
+        return 'hsl({}, {}%, {}%)'.format(h, saturation, lightness)
+
+
 
 @receiver(post_save, sender=User)
 def valid_order(sender, instance: User, **kwargs):
