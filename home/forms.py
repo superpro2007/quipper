@@ -11,6 +11,7 @@ class NewQuipForm(ModelForm):
                 "rows": "5",
                 "placeholder": "What is going on?",
                 "style": "font-size: 1.3em;",
+                "autofocus": True,
             }
         ),
         label="",
