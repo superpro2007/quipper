@@ -7,6 +7,7 @@ class Quip(models.Model):
     text = models.TextField()
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     parent_quip = models.ForeignKey('self', null=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def get_likes_count(self):
         likes_count = Like.objects.filter(quip_id=self.pk).count()

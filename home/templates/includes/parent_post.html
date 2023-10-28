@@ -1,10 +1,15 @@
 <div class="container py-4 border-bottom border-2">
   {% comment %} Header {% endcomment %}
   <div class="container py-1">
-    <p class="fw-bold fs-5 " >
+    <span class="fw-bold fs-5" >
       <a class="text-decoration-none text-reset" href="/user/{{post.user.id}}">{{post.user}}</a>
-    </p>
+    </span>
+    <span>&nbsp;&nbsp;</span>
+    {% load tz %}
+    <span class="fs-6">{{post.created_at|localtime}}</span>
   </div>
+
+  <br/>
 
   {% comment %} Text {% endcomment %}
   <div class="container py-2 text-break">
