@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import UniqueConstraint
 
 
 class Quip(models.Model):
@@ -29,7 +28,7 @@ class Like(models.Model):
 
     class Meta:
         constraints = (
-            UniqueConstraint(
+            models.UniqueConstraint(
                 name="unique_quip_user",
                 fields=["quip", "user"],
             ),

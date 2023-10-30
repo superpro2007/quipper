@@ -6,6 +6,8 @@ from main.models import Quip
 from users.models import Following
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from http import HTTPStatus
+
 
 FOLLOWING = "following"
 FOR_YOU = "for_you"
@@ -27,6 +29,7 @@ def home_request(request: HttpRequest) -> HttpResponse:
     form = NewQuipForm()
     parent_quips, child_quips = get_posts(timeline, request.user)
     return render(
+        status=HTTPStatus.CREATED,
         request=request,
         template_name="home.html",
         context={
